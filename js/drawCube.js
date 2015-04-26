@@ -52,7 +52,7 @@ var drawCube = function (rubik){
 				materials = getMaterial(x, y, z);
 
 				cube = new THREE.Mesh(
-				    new THREE.CubeGeometry(0.5, 0.5, 0.5, 1, 1, 1),
+				    new THREE.BoxGeometry(0.9, 0.9, 0.9, 1, 1, 1),
 				    new THREE.MeshFaceMaterial( materials ));
 				cube.position.x = x;
 				cube.position.y = y;

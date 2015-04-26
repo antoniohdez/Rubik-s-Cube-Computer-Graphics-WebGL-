@@ -12,15 +12,27 @@ camera.position.z = 10;
 //Look at (0,0,0)
 //camera.lookAt(scene.position);
 
+/*
+	CONTROLS
+*/
+
 //Move around Y axis by default
 var controls = new THREE.OrbitControls( camera );
 controls.addEventListener('change', render );
+
+/*
+	RENDERER (CANVAS)
+*/
 
 //Create html element (canvas)
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor( 0xCCCCCC, 1);
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
+
+/*
+	CUBE
+*/
 
 //Root element
 var rubik = new THREE.Object3D();
@@ -35,18 +47,43 @@ var sides = {
 	"orange" : new THREE.Object3D()
 }
 
-
 rubik = drawCube(rubik);
 
 scene.add(rubik);
 
+/*
+	AMBIENT LIGHT
+*/
+
 var ambientLight = new THREE.AmbientLight(0xFFFFFF);
 scene.add(ambientLight);
+
+/*
+	STATS
+*/
+
+var stats = new Stats();
+stats.setMode(0); // 0: fps, 1: ms
+
+// align top-left
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+
+document.body.appendChild( stats.domElement );
+
+/*
+	RENDER
+*/
 
 var render = function () {
 	requestAnimationFrame( render );
 
+	stats.begin();
+	
 	renderer.render(scene, camera);
+
+	stats.end();
 };
 
 render();
