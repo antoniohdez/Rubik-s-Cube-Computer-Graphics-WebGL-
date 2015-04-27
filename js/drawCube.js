@@ -28,9 +28,9 @@ var getMaterial = function (x, y, z){
 	}
 
 	if( y == 1 ){ //White
-		materials[2] = new THREE.MeshLambertMaterial({ color: 0xFFFFFF })
+		materials[2] = new THREE.MeshLambertMaterial({ color: 0xFFD500 })
 	}else if( y == -1 ){ //Yellow
-		materials[3] = new THREE.MeshLambertMaterial({ color: 0xFFD500 })
+		materials[3] = new THREE.MeshLambertMaterial({ color: 0xFFFFFF })
 	}
 
 	if( z == 1 ){ //Red
@@ -63,5 +63,8 @@ var drawCube = function (rubik){
 			}
 		}
 	}
+	rubik.rotation.x = 180*(Math.PI/180);
+	rubik.rotation.y = 180*(Math.PI/180);
+
 	return rubik;
 }

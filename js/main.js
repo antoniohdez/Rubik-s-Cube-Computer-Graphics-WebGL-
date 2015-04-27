@@ -3,8 +3,8 @@ var scene = new THREE.Scene();
 /*
 	Angle: 
 	Aspect Ratio:
-	Near: Distance at which the camera will start rendering scene objects, )
-	Far: Anything beyond this distance will not be rendered, draw distance
+	Near: Distance at which the camera will start rendering scene objects.
+	Far: Anything beyond this distance will not be rendered, draw distance.
 */
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 100 );
 camera.position.z = 10;
@@ -47,7 +47,10 @@ var sides = {
 	"orange" : new THREE.Object3D()
 }
 
+
 rubik = drawCube(rubik);
+
+console.log(rubik.children);
 
 scene.add(rubik);
 
