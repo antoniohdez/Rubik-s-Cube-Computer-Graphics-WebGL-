@@ -28,9 +28,9 @@ var getMaterial = function (x, y, z){
 	}
 
 	if( y == 1 ){ //White
-		materials[2] = new THREE.MeshLambertMaterial({ color: 0xFFD500 })
+		materials[2] = new THREE.MeshLambertMaterial({ color: 0xFFFFFF })
 	}else if( y == -1 ){ //Yellow
-		materials[3] = new THREE.MeshLambertMaterial({ color: 0xFFFFFF })
+		materials[3] = new THREE.MeshLambertMaterial({ color: 0xFFD500 })
 	}
 
 	if( z == 1 ){ //Red
@@ -43,7 +43,15 @@ var getMaterial = function (x, y, z){
 }
 
 var drawCube = function (rubik){
-	//var i = 1;
+	var sides = [
+		new THREE.Object3D(),
+		new THREE.Object3D(),
+		new THREE.Object3D(),
+		new THREE.Object3D(),
+		new THREE.Object3D(),
+		new THREE.Object3D()
+	]
+	var cubeSize = 0.92;
 	for(var x = -1; x <= 1; x++ ){
 		for(var y = -1; y <= 1; y++ ){
 			for(var z = -1; z <= 1; z++ ){
@@ -52,19 +60,21 @@ var drawCube = function (rubik){
 				materials = getMaterial(x, y, z);
 
 				cube = new THREE.Mesh(
-				    new THREE.BoxGeometry(0.9, 0.9, 0.9, 1, 1, 1),
+				    new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize, 1, 1, 1),
 				    new THREE.MeshFaceMaterial( materials ));
+
 				cube.position.x = x;
 				cube.position.y = y;
 				cube.position.z = z;
-
-				rubik.add(cube);
+				//console.log(cube);
+				//rubik.add(cube);
+				scene.add(cube);
 
 			}
 		}
 	}
-	rubik.rotation.x = 180*(Math.PI/180);
-	rubik.rotation.y = 180*(Math.PI/180);
-
-	return rubik;
+	//rubik.rotation.x = 180*(Math.PI/180);
+	//rubik.rotation.y = 180*(Math.PI/180);
+	
+	//return rubik;
 }

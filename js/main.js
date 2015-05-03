@@ -28,6 +28,9 @@ controls.addEventListener('change', render );
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor( 0xCCCCCC, 1);
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.domElement.addEventListener("keypress", function(e){
+	alert("Hey");
+});
 document.body.appendChild( renderer.domElement );
 
 /*
@@ -37,22 +40,12 @@ document.body.appendChild( renderer.domElement );
 //Root element
 var rubik = new THREE.Object3D();
 
-//Faces
-var sides = {
-	"white"  : new THREE.Object3D(),
-	"yellow" : new THREE.Object3D(),
-	"green"  : new THREE.Object3D(),
-	"blue"   : new THREE.Object3D(),
-	"red"    : new THREE.Object3D(),
-	"orange" : new THREE.Object3D()
-}
+drawCube(rubik);
+//rubik = drawCube(rubik);
 
+//console.log(rubik.children);
 
-rubik = drawCube(rubik);
-
-console.log(rubik.children);
-
-scene.add(rubik);
+//scene.add(rubik);
 
 /*
 	AMBIENT LIGHT
