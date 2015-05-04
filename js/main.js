@@ -7,7 +7,7 @@ var scene = new THREE.Scene();
 	Far: Anything beyond this distance will not be rendered, draw distance.
 */
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 100 );
-var cameraDistance = 7.5;
+var cameraDistance = 5;
 
 camera.position.x = cameraDistance;
 camera.position.y = cameraDistance*2/3;

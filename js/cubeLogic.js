@@ -1,3 +1,15 @@
+/*
+	VARIABLES
+*/
+
+var moving = false;
+var setIntervalID = false;
+var currentAngle = 0;
+
+/*
+	FUNCTIONS
+*/
+
 var getMaterial = function (x, y, z){
 	var defaultColor = 0x000000;
 	var materials = [
@@ -74,6 +86,13 @@ var drawCube = function (rubik){
 }
 
 var rotateSide = function (axis, angle){
+	if(moving){
+		return;
+	}
+
+	//Update moves on UI
+	moves.textContent = parseInt(moves.textContent) + 1;
+
 	var pivot = new THREE.Object3D();
 	var active = new Array();
 
@@ -82,7 +101,7 @@ var rotateSide = function (axis, angle){
 			active.push( scene.children[index] );
 		}
 	}
-
+	
 	pivot.rotation.set( 0, 0, 0 );
 	pivot.updateMatrixWorld();
 	
@@ -100,6 +119,10 @@ var rotateSide = function (axis, angle){
 }
 
 var rotateCube = function (axis, angle){
+	if(moving){
+		return;
+	}
+
 	var pivot = new THREE.Object3D();
 	var active = new Array();
 
@@ -114,7 +137,7 @@ var rotateCube = function (axis, angle){
 		THREE.SceneUtils.attach( active[ i ], scene, pivot );
 	}
 
-	pivot.rotation[axis] += 90*(Math.PI/180);
+	pivot.rotation[axis] += angle*(Math.PI/180);
 	pivot.updateMatrixWorld();
 
 	for ( var i in active ) {

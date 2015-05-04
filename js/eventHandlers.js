@@ -24,22 +24,39 @@ var processKey = function (key){
 			rotateCube("z", 90);
 			break;
 
+		case 87:
+		case 119:
+			rotateCube("x", -90);
+			break;
+
+		case 65:
+		case 97:
+			rotateCube("y", -90);
+			break;
+
+		case 68:
+		case 100:
+			rotateCube("y", 90);
+			break;
+
+		case 83:
+		case 115:
+			rotateCube("x", 90);
+			break;
+
 		default:
-			console.error("ERROR");
+			console.log(key);
 	}
 }
 
 var mouseCoordinates = { x:0, y:0 };
 
 var processMouseDown = function (e){
-	//console.log(e.offsetX + " " + e.offsetY);
 	mouseCoordinates.x = e.offsetX;
 	mouseCoordinates.y = e.offsetY;
 }
 
 var processMouseUp = function (e){
-	//console.log(e.offsetX + " " + e.offsetY);
-
 	var distanceX = e.offsetX - mouseCoordinates.x;
 	var distanceY = e.offsetY - mouseCoordinates.y;
 
@@ -56,42 +73,25 @@ var processMouseUp = function (e){
 	console.log(distanceX + " " + distanceY);
 
 	if( distanceX > distanceY ){
-		console.log("X rotation");
-
 		if( mouseCoordinates.x < e.offsetX ){
-			console.log("Right");
 			rotateSide("y", 90);
-
 		}else{
 			console.log("Left");
 			rotateSide("y", -90);
-
 		}
 	}else{
 		//console.log("Y rotation");
 		if( mouseCoordinates.x < (window.innerWidth/2) ){
-			console.log("Left rotation");
-
 			if( mouseCoordinates.y < e.offsetY ){
-				console.log("Down");
 				rotateSide("x", 90);
-
 			}else{
-				console.log("Up");
 				rotateSide("x", -90);
-
 			}
 		}else{
-			console.log("Right roration");
-
 			if( mouseCoordinates.y < e.offsetY ){
-				console.log("Down");
 				rotateSide("z", -90);
-
 			}else{
-				console.log("Up");
 				rotateSide("z", 90);
-
 			}
 		}
 	}
