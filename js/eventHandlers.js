@@ -25,64 +25,74 @@ var processKey = function (key){
 			break;
 
 		default:
-			//Code
+			console.error("ERROR");
 	}
 }
 
-var rotateSide = function (axis, angle){
-	var pivot = new THREE.Object3D();
-	var active = new Array();
+var mouseCoordinates = { x:0, y:0 };
 
-	for( var index in scene.children ){
-		if( scene.children[index].position[axis] === 1 ){
-			active.push( scene.children[index] );
+var processMouseDown = function (e){
+	//console.log(e.offsetX + " " + e.offsetY);
+	mouseCoordinates.x = e.offsetX;
+	mouseCoordinates.y = e.offsetY;
+}
+
+var processMouseUp = function (e){
+	//console.log(e.offsetX + " " + e.offsetY);
+
+	var distanceX = e.offsetX - mouseCoordinates.x;
+	var distanceY = e.offsetY - mouseCoordinates.y;
+
+	distanceX = Math.abs(distanceX);
+	distanceY = Math.abs(distanceY);
+
+	var linearDistance = Math.sqrt( Math.pow(distanceX, 2) + Math.pow(distanceY, 2) );
+
+	//If distance is less than 100px stop event
+	if(linearDistance < 100){
+		return;
+	}
+
+	console.log(distanceX + " " + distanceY);
+
+	if( distanceX > distanceY ){
+		console.log("X rotation");
+
+		if( mouseCoordinates.x < e.offsetX ){
+			console.log("Right");
+			rotateSide("y", 90);
+
+		}else{
+			console.log("Left");
+			rotateSide("y", -90);
+
 		}
-		
-		
-	}
+	}else{
+		//console.log("Y rotation");
+		if( mouseCoordinates.x < (window.innerWidth/2) ){
+			console.log("Left rotation");
 
-	pivot.rotation.set( 0, 0, 0 );
-	pivot.updateMatrixWorld();
-	
-	for ( var i in active ) {
-		THREE.SceneUtils.attach( active[ i ], scene, pivot );
-	}
+			if( mouseCoordinates.y < e.offsetY ){
+				console.log("Down");
+				rotateSide("x", 90);
 
-	pivot.rotation[axis] += angle*(Math.PI/180);	
-	pivot.updateMatrixWorld();
-	
-	for ( var i in active ) {
-		active[ i ].updateMatrixWorld();
-		THREE.SceneUtils.detach( active[ i ], pivot, scene );
-	}
-}
+			}else{
+				console.log("Up");
+				rotateSide("x", -90);
 
-var rotateCube = function (axis, angle){
-	var pivot = new THREE.Object3D();
-	var active = new Array();
-	for( var index in scene.children ){
-		//var tmpCube = rubik.children[index];
-		
-		active.push( scene.children[index] );
-		
-	}
+			}
+		}else{
+			console.log("Right roration");
 
-	pivot.rotation.set( 0, 0, 0 );
-	pivot.updateMatrixWorld();
-	
-	for ( var i in active ) {
-		THREE.SceneUtils.attach( active[ i ], scene, pivot );
-	}
+			if( mouseCoordinates.y < e.offsetY ){
+				console.log("Down");
+				rotateSide("z", -90);
 
-	pivot.rotation[axis] += 90*(Math.PI/180);
+			}else{
+				console.log("Up");
+				rotateSide("z", 90);
 
-	pivot.updateMatrixWorld();
-	for ( var i in active ) {
-		active[ i ].updateMatrixWorld();
-		THREE.SceneUtils.detach( active[ i ], pivot, scene );
+			}
+		}
 	}
 }
-
-document.addEventListener("keypress", function(e){
-	processKey(e.keyCode);
-});

@@ -7,18 +7,23 @@ var scene = new THREE.Scene();
 	Far: Anything beyond this distance will not be rendered, draw distance.
 */
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 100 );
-camera.position.z = 10;
+var cameraDistance = 7.5;
 
-//Look at (0,0,0)
-//camera.lookAt(scene.position);
+camera.position.x = cameraDistance;
+camera.position.y = cameraDistance*2/3;
+camera.position.z = cameraDistance;
+
+camera.lookAt( scene.position );
 
 /*
 	CONTROLS
 */
 
 //Move around Y axis by default
-var controls = new THREE.OrbitControls( camera );
-controls.addEventListener('change', render );
+
+//var controls = new THREE.OrbitControls( camera );
+//controls.addEventListener('change', render );
+
 
 /*
 	RENDERER (CANVAS)
@@ -41,11 +46,6 @@ document.body.appendChild( renderer.domElement );
 var rubik = new THREE.Object3D();
 
 drawCube(rubik);
-//rubik = drawCube(rubik);
-
-//console.log(rubik.children);
-
-//scene.add(rubik);
 
 /*
 	AMBIENT LIGHT
@@ -67,6 +67,24 @@ stats.domElement.style.left = '0px';
 stats.domElement.style.top = '0px';
 
 document.body.appendChild( stats.domElement );
+
+/*
+	EVENTS
+*/
+
+document.addEventListener("keypress", function(e){
+	processKey(e.keyCode);
+});
+
+document.addEventListener("mousedown", function(e){
+	//alert(e.offsetX + " " + e.offsetY);
+	processMouseDown(e);
+});
+
+document.addEventListener("mouseup", function(e){
+	//alert(e.offsetX + " " + e.offsetY);
+	processMouseUp(e);
+});
 
 /*
 	RENDER

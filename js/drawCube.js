@@ -55,7 +55,6 @@ var drawCube = function (rubik){
 	for(var x = -1; x <= 1; x++ ){
 		for(var y = -1; y <= 1; y++ ){
 			for(var z = -1; z <= 1; z++ ){
-				//console.log( "Line " + (i++) + " " + "X: " + x + " Y: " + y + " Z: " + z );
 				
 				materials = getMaterial(x, y, z);
 
@@ -66,15 +65,60 @@ var drawCube = function (rubik){
 				cube.position.x = x;
 				cube.position.y = y;
 				cube.position.z = z;
-				//console.log(cube);
-				//rubik.add(cube);
+				
 				scene.add(cube);
 
 			}
 		}
 	}
-	//rubik.rotation.x = 180*(Math.PI/180);
-	//rubik.rotation.y = 180*(Math.PI/180);
+}
+
+var rotateSide = function (axis, angle){
+	var pivot = new THREE.Object3D();
+	var active = new Array();
+
+	for( var index in scene.children ){
+		if( scene.children[index].position[axis] === 1 ){
+			active.push( scene.children[index] );
+		}
+	}
+
+	pivot.rotation.set( 0, 0, 0 );
+	pivot.updateMatrixWorld();
 	
-	//return rubik;
+	for ( var i in active ) {
+		THREE.SceneUtils.attach( active[ i ], scene, pivot );
+	}
+
+	pivot.rotation[axis] += angle*(Math.PI/180);	
+	pivot.updateMatrixWorld();
+	
+	for ( var i in active ) {
+		active[ i ].updateMatrixWorld();
+		THREE.SceneUtils.detach( active[ i ], pivot, scene );
+	}
+}
+
+var rotateCube = function (axis, angle){
+	var pivot = new THREE.Object3D();
+	var active = new Array();
+
+	for( var index in scene.children ){
+		active.push( scene.children[index] );
+	}
+
+	pivot.rotation.set( 0, 0, 0 );
+	pivot.updateMatrixWorld();
+	
+	for ( var i in active ) {
+		THREE.SceneUtils.attach( active[ i ], scene, pivot );
+	}
+
+	pivot.rotation[axis] += 90*(Math.PI/180);
+	pivot.updateMatrixWorld();
+
+	for ( var i in active ) {
+		active[ i ].updateMatrixWorld();
+		THREE.SceneUtils.detach( active[ i ], pivot, scene );
+	}
 }
