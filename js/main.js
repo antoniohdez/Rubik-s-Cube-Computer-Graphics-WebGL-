@@ -33,9 +33,7 @@ camera.lookAt( scene.position );
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor( 0xCCCCCC, 1);
 renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.domElement.addEventListener("keypress", function(e){
-	alert("Hey");
-});
+
 document.body.appendChild( renderer.domElement );
 
 /*

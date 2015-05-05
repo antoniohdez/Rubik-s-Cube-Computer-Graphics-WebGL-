@@ -12,18 +12,6 @@ var processKey = function (key){
 			rotateSide("z", 90);
 			break;
 
-		case 52:
-			rotateCube("x", 90);
-			break;
-
-		case 53:
-			rotateCube("y", 90);
-			break;
-
-		case 54:
-			rotateCube("z", 90);
-			break;
-
 		case 87:
 		case 119:
 			rotateCube("x", -90);
